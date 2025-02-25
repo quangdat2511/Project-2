@@ -1,0 +1,14 @@
+package com.javaweb.service;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
+
+import com.javaweb.dto.response.BuildingResponseDTO;
+
+
+public interface BuildingService {
+	List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String> typeCode);		
+	
+	public String delete(List<Long> ids);
+}
