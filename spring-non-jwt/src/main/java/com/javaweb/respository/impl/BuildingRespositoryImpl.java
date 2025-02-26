@@ -1,7 +1,6 @@
 package com.javaweb.respository.impl;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,21 +8,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.javaweb.respository.BuildingRepository;
 import com.javaweb.respository.Entity.BuildingEntity;
-
+import com.javaweb.util.ConnectionDriverUtils;
 //@Primary
 @Repository
 public class BuildingRespositoryImpl implements BuildingRepository{
-	static final String DB_URL = "jdbc:mysql://localhost:3306/estatebasic";
-	static final String USER = "root";
-	static final String PASS = "123456";
-	@Override
-	public List<BuildingEntity> findAll(Map<String, Object> params, List<String> typeCode){
-		StringBuilder sql = new StringBuilder("SELECT distinct b.* FROM building b ");
+	StringBuilder buildJoinClause(Map<String, Object> params, List<String> typeCode) {
+		StringBuilder sql = new StringBuilder("");
+		String rentAreaFrom = (String)params.get("rentAreaFrom");
+		String rentAreaTo = (String)params.get("rentAreaTo");
+		String staffId = (String)params.get("staffId");
+		if (rentAreaFrom != null && !rentAreaFrom.equals("") || rentAreaTo != null && !rentAreaTo.equals("")) {
+			sql.append(" join rentarea on rentarea.buildingid = b.id");
+		}
+		if (typeCode != null && !typeCode.isEmpty()) {
+			sql.append(" join buildingrenttype on b.id = buildingrenttype.buildingid join renttype on buildingrenttype.renttypeid = renttype.id");
+		}
+		boolean staffIdIsOk = staffId != null && !staffId.equals("");
+		if (staffIdIsOk) {
+			sql.append(" join assignmentbuilding asbd on asbd.buildingid = b.id");
+		}
+		return sql;
+	}
+	StringBuilder buildWhereClause(Map<String, Object> params, List<String> typeCode) {
+		StringBuilder sql = new StringBuilder("");
 		String nameBuilding = (String)params.get("name");
 		String floorArea = (String)params.get("floorArea");
 		String districtId = (String)params.get("districtId");
@@ -39,17 +50,6 @@ public class BuildingRespositoryImpl implements BuildingRepository{
 		String managerName = (String)params.get("managerName");
 		String managerPhoneNumber = (String)params.get("managerPhoneNumber");
 		String staffId = (String)params.get("staffId");
-		if (rentAreaFrom != null && !rentAreaFrom.equals("") || rentAreaTo != null && !rentAreaTo.equals("")) {
-			sql.append(" join rentarea on rentarea.buildingid = b.id");
-		}
-		if (typeCode != null && !typeCode.isEmpty()) {
-			sql.append(" join buildingrenttype on b.id = buildingrenttype.buildingid join renttype on buildingrenttype.renttypeid = renttype.id");
-		}
-		boolean staffIdIsOk = staffId != null && !staffId.equals("");
-		if (staffIdIsOk) {
-			sql.append(" join assignmentbuilding asbd on asbd.buildingid = b.id");
-		}
-		sql.append(" where 1 = 1");
 		if (nameBuilding != null && !nameBuilding.equals("")) {
 			sql.append(" AND b.name like '%" + nameBuilding + "%'");	
 		}			
@@ -92,7 +92,7 @@ public class BuildingRespositoryImpl implements BuildingRepository{
 		if (managerPhoneNumber != null && !managerPhoneNumber.equals("")) {
 			sql.append(" AND b.managerphonenumber like '%" + managerPhoneNumber + "%'");	
 		}
-		if (staffIdIsOk) {
+		if (staffId != null && !staffId.equals("")) {
 			sql.append(" AND asbd.staffid = " + staffId);			
 		}
 		if (typeCode != null && !typeCode.isEmpty()) {
@@ -105,11 +105,18 @@ public class BuildingRespositoryImpl implements BuildingRepository{
 			}
 			sql.append(")");
 		}
+		return sql;
+	}
+	@Override
+	public List<BuildingEntity> findAll(Map<String, Object> params, List<String> typeCode){
+		StringBuilder sql = new StringBuilder("SELECT distinct b.* FROM building b ");
+		sql.append(buildJoinClause(params, typeCode));
+		sql.append(" where 1 = 1 ");
+		sql.append(buildWhereClause(params, typeCode));	
 		List<BuildingEntity> results = new ArrayList<BuildingEntity>();
-		try(Connection con = DriverManager.getConnection(DB_URL, USER, PASS);
-				Statement st = con.createStatement();
-					ResultSet rs = st.executeQuery(sql.toString());
-					){
+		try(Connection con = ConnectionDriverUtils.getConnection()){
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql.toString());
 			while (rs.next()) 
 			{
 				BuildingEntity building = new BuildingEntity();

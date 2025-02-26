@@ -1,9 +1,10 @@
 package com.javaweb.respository;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.javaweb.respository.Entity.RentAreaEntity;
+
 public interface RentAreaRespository {
-	public List<Integer> getRentArea(Map<String, Object> params, Long buildingId);
+	public List<RentAreaEntity> getRentArea(Map<String, Object> params, Long buildingId);
 }

@@ -13,6 +13,8 @@ import com.javaweb.respository.BuildingRepository;
 import com.javaweb.respository.DistrictRepository;
 import com.javaweb.respository.RentAreaRespository;
 import com.javaweb.respository.Entity.BuildingEntity;
+import com.javaweb.respository.Entity.DistrictEntity;
+import com.javaweb.respository.Entity.RentAreaEntity;
 import com.javaweb.service.BuildingService;
 
 @Service  
@@ -31,16 +33,17 @@ public List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String
 	for (BuildingEntity buildingEntity: buildingEntities) {
 		BuildingResponseDTO buildingResponse = new BuildingResponseDTO();
 		buildingResponse.setName(buildingEntity.getName());
-		buildingResponse.setAddress(buildingEntity.getStreet() + "," + buildingEntity.getWard() + "," + districtRepository.getDistrictName(buildingEntity.getDistrictId()));
+		DistrictEntity districtEntity = districtRepository.getDistrictAccordingToDistrictId(buildingEntity.getDistrictId());
+		buildingResponse.setAddress(buildingEntity.getStreet() + "," + buildingEntity.getWard() + "," + districtEntity.getName());
 		buildingResponse.setNumberOfBasement(buildingEntity.getNumberOfBasement());
 		buildingResponse.setManagerName(buildingEntity.getManagerName());
 		buildingResponse.setManagerPhoneNumber(buildingEntity.getManagerPhoneNumber());
 		buildingResponse.setFloorArea(buildingEntity.getFloorArea());
 		buildingResponse.setAvailableArea(null);
-		List<Integer> listRentArea = rentAreaRespository.getRentArea(params, buildingEntity.getId());
+		List<RentAreaEntity> listRentArea = rentAreaRespository.getRentArea(params, buildingEntity.getId());
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < listRentArea.size(); i++) {
-            sb.append(listRentArea.get(i));
+            sb.append(listRentArea.get(i).getValue());
             if (i < listRentArea.size() - 1) {
                 sb.append(",");
             }
@@ -51,7 +54,7 @@ public List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String
         buildingResponse.setBrokerageFee(buildingEntity.getBrokerageFee());
 		results.add(buildingResponse);
 	}	
-	return results;		
+	return results;			
 }
 @Override
 public String delete(List<Long> ids) {

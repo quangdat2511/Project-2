@@ -1,7 +1,8 @@
 	package com.javaweb.respository;
 
-import java.sql.SQLException;
+
+import com.javaweb.respository.Entity.DistrictEntity;
 
 public interface DistrictRepository {
-	public String getDistrictName(Long districtId);
+	public DistrictEntity getDistrictAccordingToDistrictId(Long districtId);
 }
