@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
@@ -97,15 +98,10 @@ public class BuildingRespositoryImpl implements BuildingRepository{
 		}
 		if (typeCode != null && !typeCode.isEmpty()) {
 			sql.append(" AND renttype.code IN (");
-			for (int i = 0; i < typeCode.size(); i++) {
-				sql.append("'" + typeCode.get(i) + "'");
-				if (i != typeCode.size() - 1) {
-					sql.append(",");
-				}
-			}
+			sql.append(typeCode.stream().map(code -> "'" + code + "'").collect(Collectors.joining(", "))); 	
 			sql.append(")");
 		}
-		return sql;
+		return sql;	
 	}
 	@Override
 	public List<BuildingEntity> findAll(Map<String, Object> params, List<String> typeCode){

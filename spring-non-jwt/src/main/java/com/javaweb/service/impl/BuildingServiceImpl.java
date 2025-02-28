@@ -4,6 +4,7 @@ package com.javaweb.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,14 +42,8 @@ public List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String
 		buildingResponse.setFloorArea(buildingEntity.getFloorArea());
 		buildingResponse.setAvailableArea(null);
 		List<RentAreaEntity> listRentArea = rentAreaRespository.getRentArea(params, buildingEntity.getId());
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < listRentArea.size(); i++) {
-            sb.append(listRentArea.get(i).getValue());
-            if (i < listRentArea.size() - 1) {
-                sb.append(",");
-            }
-        }
-        buildingResponse.setRentArea(sb.toString());
+        String rentAreaAsString = listRentArea.stream().map(rentArea -> String.valueOf(rentArea.getValue())).collect(Collectors.joining(", "));
+        buildingResponse.setRentArea(rentAreaAsString);
         buildingResponse.setRentPrice(buildingEntity.getRentPrice());
         buildingResponse.setServiceFee(buildingEntity.getServiceFee());       
         buildingResponse.setBrokerageFee(buildingEntity.getBrokerageFee());
