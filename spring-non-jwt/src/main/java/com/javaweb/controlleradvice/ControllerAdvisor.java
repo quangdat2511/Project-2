@@ -27,4 +27,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler{
 		errorDetailResponse.setDetail(Arrays.asList("so nguyen thi lam sao chi het cho 0 duoc"));
 		return new ResponseEntity<Object>(errorDetailResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	@ExceptionHandler(NumberFormatException.class)
+	public ResponseEntity<Object> NumberFormatException(Exception ex){
+		ErrorDetailResponse errorDetailResponse = new ErrorDetailResponse();
+		errorDetailResponse.setError(ex.getMessage());
+		errorDetailResponse.setDetail(Arrays.asList("so nguyen thi lam sao chi het cho 0 duoc"));
+		return new ResponseEntity<Object>(errorDetailResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+	}	
 }

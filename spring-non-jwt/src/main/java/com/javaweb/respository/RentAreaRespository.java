@@ -6,5 +6,5 @@ import java.util.Map;
 import com.javaweb.respository.Entity.RentAreaEntity;
 
 public interface RentAreaRespository {
-	public List<RentAreaEntity> getRentArea(Map<String, Object> params, Long buildingId);
+	public List<RentAreaEntity> getRentArea(Long buildingId);
 }

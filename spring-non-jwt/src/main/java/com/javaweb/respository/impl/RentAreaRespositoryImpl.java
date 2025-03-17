@@ -16,17 +16,9 @@ import com.javaweb.util.ConnectionDriverUtils;
 @Repository
 public class RentAreaRespositoryImpl implements RentAreaRespository{
 	@Override
-	public List<RentAreaEntity> getRentArea(Map<String, Object> params, Long buildingId){
-		String rentAreaFrom = (String)params.get("rentAreaFrom");
-		String rentAreaTo = (String)params.get("rentAreaTo");	
+	public List<RentAreaEntity> getRentArea(Long buildingId){
 		List<RentAreaEntity> results = new ArrayList<RentAreaEntity>();
 		StringBuilder sql = new StringBuilder("SELECT * FROM rentArea where buildingid = " + buildingId.toString());
-		if (rentAreaFrom != null && !rentAreaFrom.equals("")) {
-			sql.append(" AND value >= " + rentAreaFrom);			
-		}
-		if (rentAreaTo != null && !rentAreaTo.equals("")) {
-			sql.append(" AND value <= " + rentAreaTo);
-		}
 		try(Connection con = ConnectionDriverUtils.getConnection()){
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql.toString());
