@@ -33,7 +33,7 @@ public class RentAreaRespositoryImpl implements RentAreaRespository{
 			while (rs.next()) 
 			{
 				RentAreaEntity rentAreaEntity = new RentAreaEntity();
-				rentAreaEntity.setBuildingId(rs.getLong("id"));
+				rentAreaEntity.setId(rs.getLong("id"));
 				rentAreaEntity.setValue(rs.getLong("value"));
 				rentAreaEntity.setBuildingId(rs.getLong("buildingid"));
 				rentAreaEntity.setCreatedDate(rs.getDate("createddate"));
