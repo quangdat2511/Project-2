@@ -89,8 +89,8 @@ public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
 			where.append(typeCode.stream().map(code -> "'" + code + "'").collect(Collectors.joining(", ")));
 			where.append(")");
 		}
-		Long rentPriceFrom = buildingSearchBuilder.getRentAreaFrom();
-		Long rentPriceTo = buildingSearchBuilder.getRentAreaTo();
+		Long rentPriceFrom = buildingSearchBuilder.getRentPriceFrom();
+		Long rentPriceTo = buildingSearchBuilder.getRentPriceTo();
 		if (rentPriceFrom != null) {
 			where.append(" AND b.rentPrice >= " + rentPriceFrom);
 		}
