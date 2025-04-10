@@ -1,4 +1,4 @@
-package com.javaweb.respository.impl;
+package com.javaweb.repository.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,8 +10,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.javaweb.respository.RentAreaRespository;
-import com.javaweb.respository.Entity.RentAreaEntity;
+import com.javaweb.repository.RentAreaRespository;
+import com.javaweb.repository.Entity.RentAreaEntity;
 import com.javaweb.util.ConnectionDriverUtils;
 @Repository
 public class RentAreaRespositoryImpl implements RentAreaRespository{

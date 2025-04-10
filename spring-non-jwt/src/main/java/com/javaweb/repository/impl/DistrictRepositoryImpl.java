@@ -1,4 +1,4 @@
-		package com.javaweb.respository.impl;
+		package com.javaweb.repository.impl;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,8 +7,8 @@ import java.sql.Statement;
 
 import org.springframework.stereotype.Repository;
 
-import com.javaweb.respository.DistrictRepository;
-import com.javaweb.respository.Entity.DistrictEntity;
+import com.javaweb.repository.DistrictRepository;
+import com.javaweb.repository.Entity.DistrictEntity;
 import com.javaweb.util.ConnectionDriverUtils;
 
 @Repository

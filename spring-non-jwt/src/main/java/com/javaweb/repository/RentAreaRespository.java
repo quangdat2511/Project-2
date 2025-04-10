@@ -1,9 +1,9 @@
-package com.javaweb.respository;
+package com.javaweb.repository;
 
 import java.util.List;
 import java.util.Map;
 
-import com.javaweb.respository.Entity.RentAreaEntity;
+import com.javaweb.repository.Entity.RentAreaEntity;
 
 public interface RentAreaRespository {
 	public List<RentAreaEntity> getRentArea(Long buildingId);
