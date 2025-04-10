@@ -18,7 +18,7 @@ import com.javaweb.util.StringUtils;
 
 @Primary
 @Repository
-public class BuildingRespositoryImpl{
+public class BuildingRespositoryImpl implements BuildingRepository{
 	@PersistenceContext
 	private EntityManager entityManager;
 	private void buildJoinClause(BuildingSearchBuilder buildingSearchBuilder, StringBuilder join) {

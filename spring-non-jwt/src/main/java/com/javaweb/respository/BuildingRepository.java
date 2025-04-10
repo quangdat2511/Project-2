@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.javaweb.builder.BuildingSearchBuilder;
 import com.javaweb.respository.Entity.BuildingEntity;
 
-public interface BuildingRepository extends JpaRepository<BuildingEntity, Long>{
+public interface BuildingRepository{
 	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder);
-	
 }
