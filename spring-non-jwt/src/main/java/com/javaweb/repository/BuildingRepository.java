@@ -9,5 +9,5 @@ import com.javaweb.builder.BuildingSearchBuilder;
 import com.javaweb.repository.Entity.BuildingEntity;
 
 public interface BuildingRepository{
-	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder);
+	List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder);
 }

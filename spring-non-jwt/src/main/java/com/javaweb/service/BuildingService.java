@@ -12,5 +12,5 @@ public interface BuildingService {
 	List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String> typeCode);		
 	BuildingEntity createBuilding(BuildingDTO buildingDTO);
 	BuildingEntity updateBuilding(BuildingDTO buildingDTO);
-	public String delete(List<Long> ids);
+	String delete(List<Long> ids);
 }

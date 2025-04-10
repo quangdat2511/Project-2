@@ -98,7 +98,7 @@ public class BuildingRepositoryImpl implements BuildingRepository{
 		}
 	}
 
-	//	@Override
+	@Override
 	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
 		StringBuilder sql = new StringBuilder("SELECT distinct b.* FROM building b ");
 		StringBuilder where = new StringBuilder(" where 1 = 1 ");
