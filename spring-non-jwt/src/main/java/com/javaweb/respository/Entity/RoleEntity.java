@@ -8,12 +8,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "district")
-public class DistrictEntity {
+@Table(name = "role")
+public class RoleEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -21,14 +22,10 @@ public class DistrictEntity {
 	private String code;
 	@Column(name = "name", unique = true, nullable = false)
 	private String name;
-	@OneToMany(mappedBy = "districtEntity", fetch = FetchType.EAGER)
-	private List<BuildingEntity> buildingEntity;
-	public List<BuildingEntity> getBuildingEntity() {
-		return buildingEntity;
-	}
-	public void setBuildingEntity(List<BuildingEntity> buildingEntity) {
-		this.buildingEntity = buildingEntity;
-	}
+//	@OneToMany(mappedBy = "roleEntity")
+//	private List<UserRoleEntity> roleUserEntity;
+	@ManyToMany(mappedBy = "roleEntities", fetch = FetchType.LAZY)
+	private List<UserEntity> userEntities;
 	public Long getId() {
 		return id;
 	}
@@ -46,6 +43,19 @@ public class DistrictEntity {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+//	public List<UserRoleEntity> getRoleUserEntity() {
+//		return roleUserEntity;
+//	}
+//	public void setRoleUserEntity(List<UserRoleEntity> roleUserEntity) {
+//		this.roleUserEntity = roleUserEntity;
+//	}
+//	
+	public List<UserEntity> getUserEntities() {
+		return userEntities;
+	}
+	public void setUserEntities(List<UserEntity> userEntities) {
+		this.userEntities = userEntities;
 	}
 	
 }
