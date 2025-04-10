@@ -1,6 +1,5 @@
 package com.javaweb.service.impl;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,30 +20,32 @@ import com.javaweb.repository.Entity.DistrictEntity;
 import com.javaweb.repository.Entity.RentAreaEntity;
 import com.javaweb.service.BuildingService;
 
-@Service  
-public class BuildingServiceImpl implements BuildingService{
-	@Autowired	
+@Service
+public class BuildingServiceImpl implements BuildingService {
+	@Autowired
 	private BuildingRepository buildingRepository;
 	@Autowired
 	private BuildingConverter buildingConverter;
 	@Autowired
 	private BuildingSearchBuilderConverter buildingSearchBuilderConverter;
-@Override
-public List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String> typeCode) {
-	BuildingSearchBuilder buildingSearchBuilder = buildingSearchBuilderConverter.toBuildingSearchBuilder(params, typeCode);
-	List<BuildingEntity> buildingEntities = buildingRepository.findAll(buildingSearchBuilder);
-	//filter
-	List<BuildingResponseDTO> results = new ArrayList<>();
-	for (BuildingEntity buildingEntity: buildingEntities) {
-		BuildingResponseDTO buildingResponse = buildingConverter.toBuildingSearchResponseDTO(buildingEntity);
-		results.add(buildingResponse);
-	}	
-	return results;			
+
+	@Override
+	public List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String> typeCode) {
+		BuildingSearchBuilder buildingSearchBuilder = buildingSearchBuilderConverter.toBuildingSearchBuilder(params,
+				typeCode);
+		List<BuildingEntity> buildingEntities = buildingRepository.findAll(buildingSearchBuilder);
+		// filter
+		List<BuildingResponseDTO> results = new ArrayList<>();
+		for (BuildingEntity buildingEntity : buildingEntities) {
+			BuildingResponseDTO buildingResponse = buildingConverter.toBuildingSearchResponseDTO(buildingEntity);
+			results.add(buildingResponse);
+		}
+		return results;
+	}
+
+	@Override
+	public String delete(List<Long> ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
-@Override
-public String delete(List<Long> ids) {
-	// TODO Auto-generated method stub
-	return null;
-}
-}
-	

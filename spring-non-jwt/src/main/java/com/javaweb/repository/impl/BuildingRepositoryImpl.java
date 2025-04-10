@@ -19,7 +19,7 @@ import com.javaweb.util.StringUtils;
 
 //@Primary
 @Repository
-public class BuildingRespositoryImpl implements BuildingRepository {
+public class BuildingRepositoryImpl implements BuildingRepository {
 	private void buildJoinClause(BuildingSearchBuilder buildingSearchBuilder, StringBuilder join) {
 		if (buildingSearchBuilder.getStaffId() != null) {
 			join.append(" join assignmentbuilding asbd on asbd.buildingid = b.id");
@@ -87,8 +87,8 @@ public class BuildingRespositoryImpl implements BuildingRepository {
 			where.append(typeCode.stream().map(code -> "'" + code + "'").collect(Collectors.joining(", ")));
 			where.append(")");
 		}
-		Long rentPriceFrom = buildingSearchBuilder.getRentAreaFrom();
-		Long rentPriceTo = buildingSearchBuilder.getRentAreaTo();
+		Long rentPriceFrom = buildingSearchBuilder.getRentPriceFrom();
+		Long rentPriceTo = buildingSearchBuilder.getRentPriceTo();
 		if (rentPriceFrom != null) {
 			where.append(" AND b.rentPrice >= " + rentPriceFrom);
 		}

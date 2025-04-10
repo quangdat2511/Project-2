@@ -14,7 +14,7 @@ import com.javaweb.repository.RentAreaRespository;
 import com.javaweb.repository.Entity.RentAreaEntity;
 import com.javaweb.util.ConnectionDriverUtils;
 @Repository
-public class RentAreaRespositoryImpl implements RentAreaRespository{
+public class RentAreaRepositoryImpl implements RentAreaRespository{
 	@Override
 	public List<RentAreaEntity> getRentArea(Long buildingId){
 		List<RentAreaEntity> results = new ArrayList<RentAreaEntity>();
