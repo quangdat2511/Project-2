@@ -2,6 +2,7 @@ package com.javaweb.service.impl;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -17,9 +18,10 @@ import com.javaweb.builder.BuildingSearchBuilderConverter;
 import com.javaweb.convert.BuildingConverter;
 import com.javaweb.dto.BuildingDTO;
 import com.javaweb.dto.response.BuildingResponseDTO;
-import com.javaweb.respository.BuildingRepository;
-import com.javaweb.respository.Entity.BuildingEntity;
-import com.javaweb.respository.Entity.RentAreaEntity;
+import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.RentAreaRepository;
+import com.javaweb.repository.Entity.BuildingEntity;
+import com.javaweb.repository.Entity.RentAreaEntity;
 import com.javaweb.service.BuildingService;
 
 @Service  
@@ -33,6 +35,8 @@ public class BuildingServiceImpl implements BuildingService{
 	private BuildingSearchBuilderConverter buildingSearchBuilderConverter;
 	@PersistenceContext
 	private EntityManager entityManager;
+	@Autowired
+	private RentAreaRepository rentAreaRepository;
 		
 	@Override
 	public List<BuildingResponseDTO> findAll(Map<String, Object> params, List<String> typeCode) {
@@ -49,13 +53,11 @@ public class BuildingServiceImpl implements BuildingService{
 	@Override
 	public String delete(List<Long> ids) {
 		for (Long id: ids) {
-			BuildingEntity buildingEntity = entityManager.find(BuildingEntity.class, id);
+			BuildingEntity buildingEntity = buildingRepository.findById(id).get(); 
 			if (buildingEntity != null) {
 				List<RentAreaEntity> rentAreaEntities = buildingEntity.getRentAreaEntities();
-				for (RentAreaEntity rentAreaEntity: rentAreaEntities) {
-					entityManager.remove(rentAreaEntity);
-				}
-				entityManager.remove(buildingEntity); 
+				rentAreaRepository.deleteByIdIn(rentAreaEntities.stream().map(i -> i.getId()).toList());
+				buildingRepository.deleteById(id);
 			}
 		}
 		return "Success";
@@ -65,11 +67,13 @@ public class BuildingServiceImpl implements BuildingService{
 		BuildingEntity buildingEntity = buildingConverter.toBuildingEntity(buildingDTO);
 		entityManager.persist(buildingEntity);
 		
-		for (Long rentArea: buildingDTO.getRentArea()) {
-			RentAreaEntity rentAreaEntity = new RentAreaEntity();
-			rentAreaEntity.setValue(rentArea);
-			rentAreaEntity.setBuildingEntity(buildingEntity);
-			entityManager.persist(rentAreaEntity);
+		if (buildingDTO.getRentArea() != null){
+			for (Long rentArea: buildingDTO.getRentArea()) {
+				RentAreaEntity rentAreaEntity = new RentAreaEntity();
+				rentAreaEntity.setValue(rentArea);
+				rentAreaEntity.setBuildingEntity(buildingEntity);
+				entityManager.persist(rentAreaEntity);
+			}			
 		}
 		return buildingEntity;
 	}
@@ -90,6 +94,11 @@ public class BuildingServiceImpl implements BuildingService{
 			entityManager.persist(rentAreaEntity);
 		}
 		return buildingEntity;
+	}
+	@Override
+	public String delete(String name) {
+		buildingRepository.deleteAllByNameContaining(name);
+		return "success";
 	}
 }
 	

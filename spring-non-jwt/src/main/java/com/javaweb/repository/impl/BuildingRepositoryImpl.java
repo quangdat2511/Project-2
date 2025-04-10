@@ -1,4 +1,4 @@
-package com.javaweb.respository.impl;
+package com.javaweb.repository.impl;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -12,15 +12,16 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.javaweb.builder.BuildingSearchBuilder;
-import com.javaweb.respository.BuildingRepository;
-import com.javaweb.respository.Entity.BuildingEntity;
+import com.javaweb.repository.BuildingRepositoryCustom;
+import com.javaweb.repository.Entity.BuildingEntity;
 import com.javaweb.util.StringUtils;
 
 @Primary
 @Repository
-public class BuildingRespositoryImpl{
+public class BuildingRepositoryImpl implements BuildingRepositoryCustom {
 	@PersistenceContext
 	private EntityManager entityManager;
+
 	private void buildJoinClause(BuildingSearchBuilder buildingSearchBuilder, StringBuilder join) {
 		if (buildingSearchBuilder.getStaffId() != null) {
 			join.append(" join assignmentbuilding asbd on asbd.buildingid = b.id");
@@ -98,7 +99,7 @@ public class BuildingRespositoryImpl{
 		}
 	}
 
-	//	@Override
+	@Override
 	public List<BuildingEntity> findAll(BuildingSearchBuilder buildingSearchBuilder) {
 		StringBuilder sql = new StringBuilder("SELECT distinct b.* FROM building b ");
 		StringBuilder where = new StringBuilder(" where 1 = 1 ");
@@ -107,6 +108,7 @@ public class BuildingRespositoryImpl{
 		sql.append(where);
 		sql.append(" order by b.createddate DESC");
 		Query query = entityManager.createNativeQuery(sql.toString(), BuildingEntity.class);
-		return query.getResultList();	
+		return query.getResultList();
 	}
+
 }

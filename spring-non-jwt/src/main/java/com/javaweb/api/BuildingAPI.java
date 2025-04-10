@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.javaweb.dto.BuildingDTO;
 import com.javaweb.dto.response.BuildingResponseDTO;
 import com.javaweb.myexception.ValidateDataException;
-import com.javaweb.respository.Entity.BuildingEntity;
+import com.javaweb.repository.Entity.BuildingEntity;
 import com.javaweb.service.BuildingService;
 
 @RestController
@@ -48,10 +48,16 @@ public class BuildingAPI {
 		BuildingEntity buildingEntity = buildingService.updateBuilding(buildingDTO);
 		return buildingEntity;
 	}	
-	@DeleteMapping("{ids}")
+	@DeleteMapping("/{ids}")
 	public void deleteBuilding(@PathVariable List<Long> ids){
 		System.out.print("Delete building id = " + ids);
 		String results = buildingService.delete(ids);
+		System.out.println(results);
+	}
+	@DeleteMapping("/name/{name}")
+	public void deleteBuildingByName(@PathVariable String name){
+		System.out.print("Delete building name contain " + name);
+		String results = buildingService.delete(name);
 		System.out.println(results);
 	}
 }

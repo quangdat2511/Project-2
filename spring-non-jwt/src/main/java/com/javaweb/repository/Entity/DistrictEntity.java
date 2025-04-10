@@ -1,4 +1,4 @@
-package com.javaweb.respository.Entity;
+package com.javaweb.repository.Entity;
 
 import java.util.List;
 
@@ -8,13 +8,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "role")
-public class RoleEntity {
+@Table(name = "district")
+public class DistrictEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -22,10 +21,14 @@ public class RoleEntity {
 	private String code;
 	@Column(name = "name", unique = true, nullable = false)
 	private String name;
-//	@OneToMany(mappedBy = "roleEntity")
-//	private List<UserRoleEntity> roleUserEntity;
-	@ManyToMany(mappedBy = "roleEntities", fetch = FetchType.LAZY)
-	private List<UserEntity> userEntities;
+	@OneToMany(mappedBy = "districtEntity", fetch = FetchType.EAGER)
+	private List<BuildingEntity> buildingEntity;
+	public List<BuildingEntity> getBuildingEntity() {
+		return buildingEntity;
+	}
+	public void setBuildingEntity(List<BuildingEntity> buildingEntity) {
+		this.buildingEntity = buildingEntity;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -43,19 +46,6 @@ public class RoleEntity {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-//	public List<UserRoleEntity> getRoleUserEntity() {
-//		return roleUserEntity;
-//	}
-//	public void setRoleUserEntity(List<UserRoleEntity> roleUserEntity) {
-//		this.roleUserEntity = roleUserEntity;
-//	}
-//	
-	public List<UserEntity> getUserEntities() {
-		return userEntities;
-	}
-	public void setUserEntities(List<UserEntity> userEntities) {
-		this.userEntities = userEntities;
 	}
 	
 }

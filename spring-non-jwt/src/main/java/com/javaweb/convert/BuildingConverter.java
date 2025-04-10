@@ -14,9 +14,9 @@ import org.springframework.stereotype.Component;
 import com.javaweb.dto.BuildingDTO;
 import com.javaweb.dto.response.BuildingResponseDTO;
 import com.javaweb.myexception.DistrictNotFoundException;
-import com.javaweb.respository.Entity.BuildingEntity;
-import com.javaweb.respository.Entity.DistrictEntity;
-import com.javaweb.respository.Entity.RentAreaEntity;
+import com.javaweb.repository.Entity.BuildingEntity;
+import com.javaweb.repository.Entity.DistrictEntity;
+import com.javaweb.repository.Entity.RentAreaEntity;
 
 @Component
 public class BuildingConverter {
