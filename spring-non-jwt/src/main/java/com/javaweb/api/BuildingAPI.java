@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.javaweb.dto.BuildingDTO;
 import com.javaweb.dto.response.BuildingResponseDTO;
 import com.javaweb.myexception.ValidateDataException;
-import com.javaweb.respository.Entity.BuildingEntity;
+import com.javaweb.repository.Entity.BuildingEntity;
 import com.javaweb.service.BuildingService;
 
 @RestController

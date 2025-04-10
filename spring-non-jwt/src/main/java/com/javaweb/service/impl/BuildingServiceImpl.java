@@ -17,9 +17,9 @@ import com.javaweb.builder.BuildingSearchBuilderConverter;
 import com.javaweb.convert.BuildingConverter;
 import com.javaweb.dto.BuildingDTO;
 import com.javaweb.dto.response.BuildingResponseDTO;
-import com.javaweb.respository.BuildingRepository;
-import com.javaweb.respository.Entity.BuildingEntity;
-import com.javaweb.respository.Entity.RentAreaEntity;
+import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.Entity.BuildingEntity;
+import com.javaweb.repository.Entity.RentAreaEntity;
 import com.javaweb.service.BuildingService;
 
 @Service  

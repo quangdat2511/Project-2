@@ -1,18 +1,16 @@
-package com.javaweb.respository.impl;
+package com.javaweb.repository.impl;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.javaweb.builder.BuildingSearchBuilder;
-import com.javaweb.respository.BuildingRepository;
-import com.javaweb.respository.Entity.BuildingEntity;
+import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.Entity.BuildingEntity;
 
 //@Primary
 @Repository

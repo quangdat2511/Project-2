@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.javaweb.dto.BuildingDTO;
 import com.javaweb.dto.response.BuildingResponseDTO;
-import com.javaweb.respository.Entity.BuildingEntity;
+import com.javaweb.repository.Entity.BuildingEntity;
 
 
 public interface BuildingService {

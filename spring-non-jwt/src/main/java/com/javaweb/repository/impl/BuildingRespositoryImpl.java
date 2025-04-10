@@ -1,4 +1,4 @@
-package com.javaweb.respository.impl;
+package com.javaweb.repository.impl;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -12,8 +12,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.javaweb.builder.BuildingSearchBuilder;
-import com.javaweb.respository.BuildingRepository;
-import com.javaweb.respository.Entity.BuildingEntity;
+import com.javaweb.repository.BuildingRepository;
+import com.javaweb.repository.Entity.BuildingEntity;
 import com.javaweb.util.StringUtils;
 
 @Primary
